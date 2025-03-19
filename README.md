@@ -1,6 +1,9 @@
 # bingo
 
-This template should help get you started developing with Vue 3 in Vite.
+〇調新歓ビンゴで使えないかと思って作ったやつ。
+Startで1~75までの数字からランダムに選択される。
+下の数字をクリックすることで直接選ぶことも可能。
+選ばれた数字は背景色が変わり、今後出ることはない。
 
 ## Recommended IDE Setup
 
