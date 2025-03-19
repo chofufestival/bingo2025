@@ -31,7 +31,9 @@ function reset() {
 </script>
 
 <template>
-    <h1>Bingo</h1>
+    <div class="center">
+        <h1>Bingo</h1>
+    </div>
     <button @click="start" :disabled="array.length === 0">Start!</button>
     
     <h2>{{ selectedNumbers.length > 0 ? selectedNumbers[selectedNumbers.length - 1] : 'なし' }}</h2>
@@ -50,6 +52,10 @@ function reset() {
 </template>
 
 <style scoped>
+.center {
+    align-items: center;
+}
+
 .number-list {
     display: flex;
     flex-wrap: wrap;
