@@ -7,26 +7,34 @@ let array = Array.from({ length: 75}, (_, i) => i + 1);
 
 const numbers = Array.from({ length: 75}, (_, i) => i + 1);
 
+const selectedNumber = ref(0);
 
 function start() {
-    const index = Math.floor(Math.random() * array.length);
-    const selectedNumber = array[index];
+    let roopCount = 0;
+    let intervalId = setInterval(() => {
+        const index = Math.floor(Math.random() * array.length);
+        selectedNumber.value = array[index];
+        roopCount += 1;
 
-    selectedNumbers.value.push(selectedNumber);
-
-    array.splice(index, 1);
+        if (roopCount >= 20) {
+            clearInterval(intervalId);
+            selectedNumbers.value.push(selectedNumber.value);
+            array.splice(index, 1);
+        }
+    }, 100);
 }
-
 
 function selectManually(number) {
     if (!selectedNumbers.value.includes(number)) {
         selectedNumbers.value.push(number);
+        array.splice(array.indexOf(number), 1);
     }
 }
 
 function reset() {
     selectedNumbers.value = [];
     array = Array.from({ length: 75}, (_, i) => i + 1);
+    selectedNumber.value = 0;
 }
 </script>
 
@@ -36,7 +44,7 @@ function reset() {
     </div>
     <button @click="start" :disabled="array.length === 0">Start!</button>
     
-    <h2>{{ selectedNumbers.length > 0 ? selectedNumbers[selectedNumbers.length - 1] : 'なし' }}</h2>
+    <h2>{{ selectedNumber }}</h2>
 
     <div class="number-list">
         <h3
