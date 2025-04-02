@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import Header from './components/Header.vue';
 
 const selectedNumbers = ref([]);
 
@@ -39,9 +40,7 @@ function reset() {
 </script>
 
 <template>
-    <div class="center">
-        <h1>〇調Bingo</h1>
-    </div>
+  <Header />
     
     <h2>
         {{ selectedNumber !== 0 ? selectedNumber : '' }}
