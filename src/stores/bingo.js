@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, getCurrentInstance, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useBingoStore = defineStore('bingo', () => {
@@ -17,6 +17,7 @@ export const useBingoStore = defineStore('bingo', () => {
       if (loop > Math.floor(Math.random() * 10) + 20) {
         clearInterval(timer.value)
         timer.value = null
+        localStorage.setItem('bingoHistory', JSON.stringify(history.value))
       }
     }, 100)
   }
@@ -32,6 +33,13 @@ export const useBingoStore = defineStore('bingo', () => {
   function reset() {
     history.value = []
     timer.value = null
+    localStorage.removeItem('bingoHistory')
+  }
+
+  if (getCurrentInstance()) {
+    onMounted(() => {
+      history.value = JSON.parse(localStorage.getItem('bingoHistory')) || []
+    })
   }
 
   return { history, timer, start, toggle, reset }
