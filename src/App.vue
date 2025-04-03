@@ -14,7 +14,7 @@ const { start, toggle } = store
     <Header />
     <div class="grow flex justify-around items-center">
       <div>
-        <img src="./assets/images/logo.png" class="opacity-75 h-[20rem]" />
+        <img src="./assets/images/logo.png" class="opacity-75 w-[20rem]" />
       </div>
       <div class="flex-none flex flex-col justify-center items-center w-[10rem]">
         <div class="font-bold font-monospace text-[10rem] mb-6">
@@ -25,7 +25,7 @@ const { start, toggle } = store
         </div>
       </div>
       <div>
-        <img src="./assets/images/charactors.png" class="opacity-75 h-[20rem]" />
+        <img src="./assets/images/charactors.png" class="opacity-75 w-[20rem]" />
       </div>
     </div>
     <div class="grid grid-cols-5 gap-6 p-6">
