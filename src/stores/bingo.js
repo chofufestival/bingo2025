@@ -28,6 +28,7 @@ export const useBingoStore = defineStore('bingo', () => {
     } else {
       history.value.push(n)
     }
+    localStorage.setItem('bingoHistory', JSON.stringify(history.value))
   }
 
   function reset() {
