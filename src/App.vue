@@ -12,12 +12,20 @@ const { start, toggle } = store
 <template>
   <div class="flex flex-col h-screen">
     <Header />
-    <div class="grow flex flex-col justify-center items-center">
-      <div class="font-bold font-monospace text-[10rem] my-6">
-        {{ history.length ? history[history.length - 1] : '--' }}
+    <div class="grow flex justify-around items-center">
+      <div>
+        <img src="./assets/images/logo.png" class="opacity-75 h-[20rem]" />
       </div>
-      <div class="center">
-        <button @click="start" :disabled="timer" class="btn btn-xl btn-primary">Start!</button>
+      <div class="flex-none flex flex-col justify-center items-center w-[10rem]">
+        <div class="font-bold font-monospace text-[10rem] mb-6">
+          {{ history.length ? history[history.length - 1] : '--' }}
+        </div>
+        <div>
+          <button @click="start" :disabled="timer" class="btn btn-xl btn-primary">Start!</button>
+        </div>
+      </div>
+      <div>
+        <img src="./assets/images/charactors.png" class="opacity-75 h-[20rem]" />
       </div>
     </div>
     <div class="grid grid-cols-5 gap-6 p-6">
@@ -26,7 +34,7 @@ const { start, toggle } = store
           v-for="n in Array.from(Array(15), (_, i) => i + 1 + (col - 1) * 15)" 
           :key="n"
           @click="toggle(n)"
-          :class="`btn btn-xl text-3xl py-8 m-0 rounded-sm ${history.includes(n) && 'btn-primary'}`"
+          :class="`btn btn-xl text-3xl py-8 m-0 rounded-sm font-monospace ${history.includes(n) && 'btn-primary'}`"
           >
           {{ n }}
         </button>
