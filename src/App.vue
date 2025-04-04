@@ -1,12 +1,26 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import Header from './components/Header.vue'
 import { useBingoStore } from './stores/bingo.js'
 
 const store = useBingoStore()
-const { history, timer } = storeToRefs(store)
+const { storage, history, timer } = storeToRefs(store)
 const { start, toggle } = store
+const strong = ref(false)
+
+watch(storage, (_) => {
+  console.log('aaa')
+  let count = 0
+  strong.value = true
+  const animation = setInterval(() => {
+    count++
+    if (count > 4) {
+      clearInterval(animation)
+    }
+    strong.value = strong.value ? false : true
+  }, 250)
+})
 </script>
 
 <template>
@@ -17,7 +31,7 @@ const { start, toggle } = store
         <img src="./assets/images/logo.png" class="opacity-75 w-[20rem]" />
       </div>
       <div class="flex-none flex flex-col justify-center items-center w-[10rem]">
-        <div class="font-bold font-monospace text-[10rem] mb-6">
+        <div :class="`font-bold font-monospace text-[10rem] mb-6 transition-all ${strong && history.length && 'text-red-500 text-[12.5rem]'}`">
           {{ history.length ? history[history.length - 1] : '--' }}
         </div>
         <div>

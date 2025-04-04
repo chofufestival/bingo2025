@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.1",
+    "@vueuse/core": "^13.0.0",
     "daisyui": "^5.0.12",
     "pinia": "^3.0.1",
     "tailwindcss": "^4.1.1",
