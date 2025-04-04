@@ -9,17 +9,18 @@ const { storage, history, timer } = storeToRefs(store)
 const { start, toggle } = store
 const strong = ref(false)
 
-watch(storage, (_) => {
-  console.log('aaa')
-  let count = 0
-  strong.value = true
-  const animation = setInterval(() => {
-    count++
-    if (count > 4) {
-      clearInterval(animation)
-    }
-    strong.value = strong.value ? false : true
-  }, 250)
+watch(storage, (updated, old) => {
+  if (updated.length > old.length) {
+    let count = 0
+    strong.value = true
+    const animation = setInterval(() => {
+      count++
+      if (count > 4) {
+        clearInterval(animation)
+      }
+      strong.value = strong.value ? false : true
+    }, 250)
+  }
 })
 </script>
 
@@ -31,7 +32,7 @@ watch(storage, (_) => {
         <img src="./assets/images/logo.png" class="opacity-75 w-[20rem]" />
       </div>
       <div class="flex-none flex flex-col justify-center items-center w-[10rem]">
-        <div :class="`font-bold font-monospace text-[10rem] mb-6 transition-all ${strong && history.length && 'text-red-500 text-[12.5rem]'}`">
+        <div :class="`font-bold font-monospace text-[10rem] mb-6 transition-all ${strong && 'text-red-500 text-[12.5rem]'}`">
           {{ history.length ? history[history.length - 1] : '--' }}
         </div>
         <div>
