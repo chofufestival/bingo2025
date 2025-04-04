@@ -10,7 +10,7 @@ const { start, toggle } = store
 const strong = ref(false)
 
 watch(storage, (updated, old) => {
-  if (updated.length > old.length) {
+  if (updated.length >= old.length) {
     let count = 0
     strong.value = true
     const animation = setInterval(() => {
