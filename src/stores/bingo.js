@@ -19,7 +19,7 @@ export const useBingoStore = defineStore('bingo', () => {
       if (loop > Math.floor(Math.random() * 10) + 20) {
         clearInterval(timer.value)
         timer.value = null
-        storage.value = history.value
+        storage.value = [...history.value]
       }
     }, 100)
   }
@@ -30,7 +30,7 @@ export const useBingoStore = defineStore('bingo', () => {
     } else {
       history.value.push(n)
     }
-    storage.value = history.value
+    storage.value = [...history.value]
   }
 
   function reset() {
