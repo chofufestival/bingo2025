@@ -1,0 +1,60 @@
+[
+    {
+        "type": "multiple-choice",
+        "question": "電気通信大学のマスコットキャラクターの名前は？",
+        "options": ["ずんだもん", "イースラ", "むすび丸", "りさじゅう"],
+        "answer": "りさじゅう"
+    },
+    {
+        "type": "multiple-choice",
+        "question": "電通大に実際には\"ない\"のはどれ？",
+        "options": ["e-Nexus棟", "ドーム友達", "東21号館", "UEC保育園「どんぐり」"],
+        "answer": "東21号館"
+    },
+    {
+        "type": "multiple-choice",
+        "question": "電通大で実際に開講されて\"いない\"授業はどれ？",
+        "options": ["心理学", "スペイン語", "美術", "生涯スポーツ演習"],
+        "answer": "スペイン語"
+    },
+    {
+        "type": "multiple-choice",
+        "question": "副委員長原澤の出身地はどこ？",
+        "options": ["群馬県", "岐阜県", "東京都", "コートジボワール"],
+        "answer": "群馬県"
+    },
+    {
+        "type": "multiple-choice",
+        "question": "電通大に\"存在しない\"専門教育プログラムは？",
+        "options": ["情報数理工学", "情報通信工学", "電子情報工学", "物理工学"],
+        "answer": "電子情報工学"
+    },
+    {
+        "type": "multiple-choice",
+        "question": "電通大は長野に研究施設を持っているが、主になんの研究のため？",
+        "options": ["素粒子の検出", "電波観測", "雪による冷却実験", "高原での植物栽培"],
+        "answer": "電波観測"
+    },
+    {
+        "type": "multiple-choice",
+        "question": "電気通信大学ができるきっかけとなった歴史的事件はどれ？",
+        "options": ["世界恐慌", "フランス革命", "米騒動", "タイタニック号事件"],
+        "answer": "タイタニック号事件"
+    },
+    {
+        "type": "multiple-choice",
+        "question": "資材局長鈴木の誕生日は？",
+        "options": ["2/21", "5/15", "11/26", "明日！！"],
+        "answer": "5/15"
+    },
+    {
+        "type": "free-response",
+        "question": "What is the chemical symbol for water?",
+        "answer": "H2O"
+    },
+    {
+        "type": "free-response",
+        "question": "Who is the current president of the United States?",
+        "answer": "Joe Biden"
+    }
+]
