@@ -5,4 +5,7 @@
 
 :root {
   font-size: 0.85vw;
+  font-family: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+  --color-primary: #D4A574;
+  --color-primary-content: #ffffff;
 }

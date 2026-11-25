@@ -1,42 +1,89 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import Header from './components/Header.vue'
 import { useBingoStore } from './stores/bingo.js'
 
 const store = useBingoStore()
-const { storage, history, timer } = storeToRefs(store)
+const { storage, history, currentResults, timer } = storeToRefs(store)
 const { start, toggle } = store
 const strong = ref(false)
+const drawCount = ref(1)
+let animation = null
+
+function handleKeydown(event) {
+  if (event.repeat || event.isComposing || event.metaKey || event.ctrlKey || event.altKey) return
+  if (['INPUT', 'SELECT', 'TEXTAREA', 'BUTTON'].includes(event.target?.tagName)) return
+  if (timer.value) return
+
+  if (event.code === 'Space') {
+    event.preventDefault()
+    start(drawCount.value)
+    return
+  }
+
+  if (/^[1-5]$/.test(event.key)) {
+    drawCount.value = Number(event.key)
+  }
+}
+
+onMounted(() => window.addEventListener('keydown', handleKeydown))
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown)
+  clearInterval(animation)
+})
 
 watch(storage, (updated, old) => {
   if (updated.length >= old.length) {
+    clearInterval(animation)
     let count = 0
     strong.value = true
-    const animation = setInterval(() => {
+    animation = setInterval(() => {
       count++
       if (count > 4) {
         clearInterval(animation)
+        animation = null
+        strong.value = false
+        return
       }
-      strong.value = strong.value ? false : true
+      strong.value = !strong.value
     }, 250)
   }
 })
 </script>
 
 <template>
-  <div class="flex flex-col h-screen">
+  <div class="relative isolate flex h-screen flex-col overflow-hidden">
+    <img
+      src="./assets/images/background.png"
+      alt=""
+      class="pointer-events-none absolute inset-0 -z-10 size-full object-cover"
+    />
     <Header />
     <div class="grow flex justify-around items-center">
       <div>
         <img src="./assets/images/logo.png" class="opacity-75 w-[20rem]" />
       </div>
-      <div class="flex-none flex flex-col justify-center items-center w-[10rem]">
-        <div :class="`font-bold font-monospace text-[10rem] mb-6 transition-all ${strong && 'text-red-500 text-[12.5rem]'}`">
-          {{ history.length ? history[history.length - 1] : '--' }}
+      <div class="relative flex-none h-[20rem] w-[50rem]">
+        <div class="flex h-[12rem] items-center justify-center gap-6">
+          <div
+            v-for="number in currentResults"
+            :key="number"
+            :class="`font-bold text-[7.2rem] transition-all ${strong ? 'text-red-500 text-[8.4rem]' : 'text-white'}`"
+          >
+            {{ number }}
+          </div>
+          <div v-if="!currentResults.length" class="font-bold text-[7.2rem] text-white">
+            --
+          </div>
         </div>
-        <div>
-          <button @click="start" :disabled="timer" class="btn btn-xl btn-primary">Start!</button>
+        <div class="absolute bottom-0 left-0 flex w-full flex-col items-center gap-2">
+          <button @click="start(drawCount)" :disabled="timer" class="btn btn-xl btn-primary w-[10rem]">Start!</button>
+          <select v-model.number="drawCount" :disabled="timer" class="select w-[5.5rem] border-white/20 bg-black/20 px-2 text-white/70 shadow-none disabled:border-white/20 disabled:bg-black/20 disabled:text-white/70 disabled:opacity-100">
+            <option v-for="count in 5" :key="count" :value="count">
+              {{ count }}個
+            </option>
+          </select>
         </div>
       </div>
       <div>
@@ -49,7 +96,7 @@ watch(storage, (updated, old) => {
           v-for="n in Array.from(Array(15), (_, i) => i + 1 + (col - 1) * 15)" 
           :key="n"
           @click="toggle(n)"
-          :class="`btn btn-xl text-3xl py-8 m-0 rounded-sm font-monospace ${history.includes(n) && 'btn-primary'}`"
+          :class="`btn btn-xl text-3xl py-8 m-0 rounded-sm ${history.includes(n) || (timer && currentResults.includes(n)) ? 'btn-primary' : ''} ${timer ? 'pointer-events-none' : ''}`"
           >
           {{ n }}
         </button>
